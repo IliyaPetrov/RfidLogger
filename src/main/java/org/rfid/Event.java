@@ -20,6 +20,11 @@ public class Event {
 
     Event(){};
 
+    public Event(String rfid, long date) {
+        this.rfid = rfid;
+        this.date = date;
+    }
+
     public String getRfid() {
         return rfid;
     }

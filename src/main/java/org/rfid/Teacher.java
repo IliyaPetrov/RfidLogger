@@ -20,6 +20,11 @@ public class Teacher {
 
     Teacher(){};
 
+    public Teacher(String name, String rfid) {
+        this.name = name;
+        this.rfid = rfid;
+    }
+
     public String getName() {
         return name;
     }

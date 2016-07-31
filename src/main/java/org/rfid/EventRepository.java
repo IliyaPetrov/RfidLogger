@@ -10,5 +10,5 @@ import java.util.List;
  */
 public interface EventRepository extends PagingAndSortingRepository<Event, Long> {
 
-    List<Event> findByRfid(@Param("rfid") String rfid);
+    List<Event> findByRfidAndDateBetweenOrderByDate(@Param("rfid") String rfid, @Param("starttime") Long starttime, @Param("endtime") Long endtime);
 }
