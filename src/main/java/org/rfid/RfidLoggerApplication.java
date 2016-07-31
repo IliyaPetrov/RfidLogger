@@ -21,16 +21,18 @@ public class RfidLoggerApplication {
 	@Bean
 	public CommandLineRunner demo(EventRepository repository, TeacherRepository trepo) {
 		return (args) -> {
-			repository.save(new Event("137", 1234));
-			repository.save(new Event("137", 1244));
-			repository.save(new Event("137", 1254));
-			repository.save(new Event("137", 1264));
-			repository.save(new Event("137", 1278));
-			repository.save(new Event("137", 1299));
+			repository.save(new Event("137", 1469953584L));
+			repository.save(new Event("137", 1469968224L));
+			repository.save(new Event("137", 1469971824L));
+			repository.save(new Event("137", 1469988024L));
+			repository.save(new Event("142", 1469953584L));
+			repository.save(new Event("158", 1469953584L));
+			repository.save(new Event("158", 1469988024L));
 
 
 			trepo.save(new Teacher("Gosho","137"));
-			trepo.save(new Teacher("Pesho","150"));
+			trepo.save(new Teacher("Pesho","142"));
+			trepo.save(new Teacher("Dragan","158"));
 
 //			for (Teacher teacher : trepo.findAll()) {
 //				repository.findByRfidAndDateBetweenOrderByDate(teacher.getName(),1234L,1278L);
@@ -41,7 +43,7 @@ public class RfidLoggerApplication {
 //				log.info(String.valueOf(event.getDate()));
 //			}
 
-			List<Event> minMax = repository.findByRfidAndDateBetweenOrderByDate("137",1234L,1278L);
+			List<Event> minMax = repository.findByRfidAndDateBetweenOrderByDate("137",1469433600L,1469988000L);
             Event first = minMax.get(0);
 			Event last = minMax.get(minMax.size()-1);
 
