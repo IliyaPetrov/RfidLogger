@@ -8,12 +8,12 @@ public class Report {
     Long entrance;
     Long exit;
 
-    String rfid;
+    String name;
 
-    public Report(Long entrance, Long exit, String rfid) {
+    public Report(Long entrance, Long exit, String name) {
         this.entrance = entrance;
         this.exit = exit;
-        this.rfid = rfid;
+        this.name = name;
     }
 
     public Long getEntrance() {
@@ -32,11 +32,11 @@ public class Report {
         this.exit = exit;
     }
 
-    public String getRfid() {
-        return rfid;
+    public String getName() {
+        return name;
     }
 
-    public void setRfid(String rfid) {
-        this.rfid = rfid;
+    public void setName(String name) {
+        this.name = name;
     }
 }

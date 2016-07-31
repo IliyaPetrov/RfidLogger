@@ -33,7 +33,7 @@ public class RfidLoggerApplication {
 			trepo.save(new Teacher("Pesho","150"));
 
 //			for (Teacher teacher : trepo.findAll()) {
-//				repository.findByRfidAndDateBetweenOrderByDate(teacher.getRfid(),1234L,1278L);
+//				repository.findByRfidAndDateBetweenOrderByDate(teacher.getName(),1234L,1278L);
 //			}
 
 
