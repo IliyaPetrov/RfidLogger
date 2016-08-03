@@ -20,7 +20,7 @@ public class Event {
 
     Event(){};
 
-    public Event(String rfid, long date) {
+    Event(String rfid, long date) {
         this.rfid = rfid;
         this.date = date;
     }
@@ -33,7 +33,7 @@ public class Event {
         this.rfid = rfid;
     }
 
-    public long getDate() {
+    long getDate() {
         return date;
     }
 

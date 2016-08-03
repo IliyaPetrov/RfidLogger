@@ -1,40 +1,60 @@
 package org.rfid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.List;
+
 
 /**
  * Created by iliyapetrov on 31.07.16.
  */
-@RestController
-public class ReportController {
 
-    @Autowired
-    EventRepository repository;
+@RestController
+@RequestMapping("/api/report")
+public class ReportController {
 
     @Autowired
     TeacherRepository teacherRepository;
 
-    @RequestMapping(value = "/report/{rfid}/{date}", method = RequestMethod.GET)
-    public Report reportControllerGet(@PathVariable String rfid,@PathVariable long date) {
-        Teacher teacher = teacherRepository.findByRfid(rfid);
-        List<Event> minMax = repository.findByRfidAndDateBetweenOrderByDate(rfid,date,date+(24*60*60));
+    @Autowired
+    ReportLogic reportLogic;
 
-        if (minMax.isEmpty()){
-            return new Report(0L, 0L, teacher.getName());
-        } else if (minMax.size()==1){
-            Event first = minMax.get(0);
-            return new Report(first.getDate(), 0L, teacher.getName());
-        }
-        else {
-            Event first = minMax.get(0);
-            Event last = minMax.get(minMax.size() - 1);
-            return new Report(first.getDate(), last.getDate(), teacher.getName());
-        }
+    @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public HttpEntity<List<Report>> reportControllerGetAll() {
+
+        List<Report> reportAll = new ArrayList<>();
+
+        LocalDateTime timeNow = LocalDateTime.now();
+        LocalDateTime timeToday = timeNow.withDayOfYear(timeNow.getDayOfYear()).
+                withDayOfMonth(timeNow.getDayOfMonth()).
+                withMonth(timeNow.getMonthValue()).
+                withHour(0).
+                withMinute(0).
+                withSecond(0);
+        ZoneId zoneId = ZoneId.systemDefault();
+        Long today = timeToday.atZone(zoneId).toEpochSecond();
+
+
+        for (Teacher teacher : teacherRepository.findAll()) {
+            reportAll.add(reportLogic.generateReport(teacher.getRfid(),today));
+			}
+
+        return new ResponseEntity<>(reportAll,  HttpStatus.OK);
     }
 
-
+    @RequestMapping(value = "/{rfid}/{date}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public HttpEntity<Report> reportControllerGet(@PathVariable String rfid, @PathVariable long date) {
+        return new ResponseEntity<>(reportLogic.generateReport(rfid,date), HttpStatus.OK);
+    }
 
 }

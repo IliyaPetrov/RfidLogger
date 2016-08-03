@@ -2,6 +2,7 @@ package org.rfid;
 
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Component;
 
 /**
  * Created by iliyapetrov on 24.07.16.
