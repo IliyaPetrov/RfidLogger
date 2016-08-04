@@ -1,9 +1,13 @@
 package org.rfid;
 
+import org.springframework.hateoas.ResourceSupport;
+import org.springframework.stereotype.Component;
+
 /**
  * Created by iliyapetrov on 31.07.16.
  */
-public class Report {
+@Component
+public class Report extends ResourceSupport {
 
     Long entrance;
     Long exit;
@@ -15,6 +19,8 @@ public class Report {
         this.exit = exit;
         this.name = name;
     }
+
+    public Report(){}
 
     public Long getEntrance() {
         return entrance;
