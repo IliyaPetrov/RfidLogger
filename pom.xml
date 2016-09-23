@@ -126,7 +126,7 @@
 				<artifactId>docker-maven-plugin</artifactId>
 				<version>0.4.11</version>
 				<configuration>
-					<imageName>maps-server</imageName>
+					<imageName>report</imageName>
 					<baseImage>java</baseImage>
 					<entryPoint>["java","-Djava.security.egd=file:/dev/./urandom","-Dspring.profiles.active=container","-jar", "/opt/${project.build.finalName}.jar"]</entryPoint>
 					<resources>
