@@ -1,6 +1,6 @@
 #!/bin/bash
 
-endpoint='http://localhost:8080/api/events'
+endpoint='http://localhost:8090/api/events'
 
 while true
 do
