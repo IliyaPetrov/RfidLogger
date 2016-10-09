@@ -5,7 +5,7 @@ export const FETCH_WEATHER = 'FETCH_WEATHER';
 
 export function fetchWeather(size,page,sort) {
   const url = `/${config.DEFALT_ENDPOINT}`;
-  const request = axios.get(url, { baseURL: config.DEFALT_BASE_URL, timeout: 1000,
+  const request = axios.get(url, { baseURL: config.DEFALT_BASE_URL, timeout: 100000,
                               validateStatus: function (status) {
                               if (status != 200) { alert("Status code: ".concat(status)) ;}
                               return status == 200; }
