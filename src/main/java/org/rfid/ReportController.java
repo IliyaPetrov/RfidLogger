@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 /**
@@ -29,9 +30,11 @@ public class ReportController {
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public HttpEntity<List<Report>> reportControllerGetAll() {
+    public HttpEntity<List<ReportDTO>> reportControllerGetAll() {
 
         List<Report> reportAll = new ArrayList<>();
+        List<ReportDTO> reportDTO = new ArrayList<>();
+
 
         LocalDateTime timeNow = LocalDateTime.now();
         LocalDateTime timeToday = timeNow.withDayOfYear(timeNow.getDayOfYear()).
@@ -48,7 +51,14 @@ public class ReportController {
             reportAll.add(reportLogic.generateReport(teacher.getRfid(),today));
 			}
 
-        return new ResponseEntity<>(reportAll,  HttpStatus.OK);
+        reportAll.stream().map(report ->
+                reportDTO.add(
+                        new ReportDTO(String.valueOf(report.getEntrance()),
+                                String.valueOf(report.getExit()),
+                                report.getName()))).
+                collect(Collectors.toList());
+
+        return new ResponseEntity<>(reportDTO,  HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{rfid}/{date}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
